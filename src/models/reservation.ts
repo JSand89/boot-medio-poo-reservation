@@ -1,18 +1,48 @@
 import { Customer } from './customer';
-import { Table } from './table';
 
 export abstract class Reservation {
-  constructor(
-    public reservationId: number,
-    public customer: Customer,
-    public dateTime: Date,
-    public numberOfGuests: number
-  ) {}
+  private reservationId: number;
+  private customer: Customer;
+  private dateTime: Date;
+  private numberOfGuests: number;
 
+  constructor(
+    reservationId: number,
+    customer: Customer,
+    dateTime: Date,
+    numberOfGuests: number
+  ) {
+    this.reservationId = reservationId;
+    this.customer = customer;
+    this.dateTime = dateTime;
+    this.numberOfGuests = numberOfGuests;
+  }
+
+  public getReservationId(): number {
+    return this.reservationId;
+  }
+
+  public getCustomer(): Customer {
+    return this.customer;
+  }
+
+  public getDateTime(): Date {
+    return this.dateTime;
+  }
+
+  public getNumberOfGuests(): number {
+    return this.numberOfGuests;
+  }
+
+  public setDateTime(newDateTime: Date): void {
+    this.dateTime = newDateTime;
+  }
+
+  public setNumberOfGuests(newNumberOfGuests: number): void {
+    this.numberOfGuests = newNumberOfGuests;
+  }
+
+  // Métodos abstractos
   abstract confirm(): void;
   abstract cancel(): void;
-
-  getDetails(): string {
-    return `Reservation ID: ${this.reservationId}, Customer: ${this.customer.name}, Date: ${this.dateTime.toISOString()}`;
-  }
 }

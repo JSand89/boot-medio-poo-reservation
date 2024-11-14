@@ -3,31 +3,34 @@ import { Customer } from './customer';
 import { Table } from './table';
 
 export class DineInReservation extends Reservation {
+  private table: Table;
+
   constructor(
     reservationId: number,
     customer: Customer,
     dateTime: Date,
     numberOfGuests: number,
-    public table: Table
+    table: Table
   ) {
     super(reservationId, customer, dateTime, numberOfGuests);
+    this.table = table;
   }
 
-  confirm(): void {
-    if (this.table.isAvailable) {
+  public getTable(): Table {
+    return this.table;
+  }
+
+  public confirm(): void {
+    if (this.table.getIsAvailable()) {
       this.table.markOccupied();
-      console.log(`Dine-in reservation confirmed for table ${this.table.tableNumber}`);
+      console.log(`Dine-in reservation confirmed for table ${this.table.getTableNumber()}`);
     } else {
-      console.log(`Table ${this.table.tableNumber} is not available`);
+      console.log(`Table ${this.table.getTableNumber()} is not available`);
     }
   }
 
-  cancel(): void {
+  public cancel(): void {
     this.table.markAvailable();
-    console.log(`Dine-in reservation cancelled for table ${this.table.tableNumber}`);
-  }
-
-  getDetails(): string {
-    return `Dine-in reservation for ${this.customer.name} at table ${this.table.tableNumber} on ${this.dateTime.toISOString()}`;
+    console.log(`Dine-in reservation cancelled for table ${this.table.getTableNumber()}`);
   }
 }
