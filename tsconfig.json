@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "ES6",                 // Versión de JavaScript a la que se compilará
+      "module": "commonjs",            // Módulo de sistema que usa Node.js
+      "outDir": "./dist",              // Directorio de salida para archivos compilados
+      "rootDir": "./src",              // Directorio raíz del código fuente
+      "strict": true,                  // Activa todas las comprobaciones de tipo estricto
+      "esModuleInterop": true,         // Permite la importación de módulos ES
+      "forceConsistentCasingInFileNames": true, // Requiere consistencia en el uso de mayúsculas y minúsculas
+      "skipLibCheck": true,            // Omite la verificación de tipos de archivos de declaración
+      "resolveJsonModule": true        // Permite importar archivos JSON
+    },
+    "include": ["src/**/*"],           // Archivos a incluir en la compilación
+    "exclude": ["node_modules"]        // Archivos o directorios a excluir de la compilación
+  }
+  
