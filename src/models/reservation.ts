@@ -1,18 +1,20 @@
-import { Customer } from './customer';
-import { Table } from './table';
+import mongoose, { Schema, Document } from 'mongoose';
+import { ICustomer } from './customer';
+import { ITable } from './table';
 
-export abstract class Reservation {
-  constructor(
-    public reservationId: number,
-    public customer: Customer,
-    public dateTime: Date,
-    public numberOfGuests: number
-  ) {}
-
-  abstract confirm(): void;
-  abstract cancel(): void;
-
-  getDetails(): string {
-    return `Reservation ID: ${this.reservationId}, Customer: ${this.customer.name}, Date: ${this.dateTime.toISOString()}`;
-  }
+export interface IReservation extends Document {
+  customer: ICustomer['_id'];
+  table: ITable['_id'];
+  dateTime: Date;
+  numberOfGuests: number;
 }
+
+const reservationSchema: Schema = new Schema({
+  customer: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
+  table: { type: Schema.Types.ObjectId, ref: 'Table', required: true },
+  dateTime: { type: Date, required: true },
+  numberOfGuests: { type: Number, required: true }
+});
+
+export default mongoose.model<IReservation>('Reservation', reservationSchema);
+
